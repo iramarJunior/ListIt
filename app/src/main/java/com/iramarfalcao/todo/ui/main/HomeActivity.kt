@@ -5,13 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iramarfalcao.todo.R
-import com.iramarfalcao.todo.model.TaskList
-import com.iramarfalcao.todo.ui.main.adapter.TaskListAdapter
 
 class HomeActivity : AppCompatActivity() {
 
@@ -19,34 +14,11 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var noContent: View
     private lateinit var rvList: RecyclerView
 
-    private lateinit var homeViewModel: HomeViewModel
-    private val taskListAdapter by lazy { TaskListAdapter() }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         rvList = findViewById(R.id.rvList)
-        rvList.adapter = taskListAdapter
-        rvList.layoutManager = LinearLayoutManager(this)
-
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        homeViewModel.taskList.observe(this, Observer { taskListAdapter(it) })
-//        taskListAdapter.setData(homeViewModel.taskList.observe())
-
-//        val swipeHandler = object : SwipeToDeleteCallback(this) {
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                val adapter = recyclerView.adapter as SimpleAdapter
-//                adapter.removeAt(viewHolder.adapterPosition)
-//            }
-//        }
-//        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-//        itemTouchHelper.attachToRecyclerView(recyclerView)
-//
-//        addItemBtn.setOnClickListener(this)
-
-
-        setNoContentWhenEmptyList(taskListAdapter.itemCount)
     }
 
     private fun setNoContentWhenEmptyList(listSize: Int) {
