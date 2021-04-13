@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">List it!</string>
+    <string name="add_task_group">Add Task Group</string>
+    <string name="developed_by">Developed by Iramar Falcão</string>
+</resources>
