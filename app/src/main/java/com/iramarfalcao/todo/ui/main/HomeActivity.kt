@@ -19,6 +19,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         rvList = findViewById(R.id.rvList)
+        setNoContentWhenEmptyList(0)
     }
 
     private fun setNoContentWhenEmptyList(listSize: Int) {
@@ -28,15 +29,17 @@ class HomeActivity : AppCompatActivity() {
         if (listSize > 0) ivNoContent.visibility = View.GONE
         else ivNoContent.visibility = View.VISIBLE
 
-        when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-            Configuration.UI_MODE_NIGHT_YES -> ivNoContent.setImageResource(R.drawable.ic_image_no_content_dark)
-            else -> ivNoContent.setImageResource(R.drawable.ic_image_no_content)
+        when (isUsingNightModeResources()) {
+            true -> ivNoContent.setImageResource(R.drawable.ic_image_no_content_dark)
+            false -> ivNoContent.setImageResource(R.drawable.ic_image_no_content)
         }
     }
 
-//    override fun onClick(v: View?) {
-//        when (v?.id) {
-//            R.id.addItemBtn -> simpleAdapter.addItem("New item")
-//        }
-//    }
+    private fun isUsingNightModeResources(): Boolean =
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> true
+            Configuration.UI_MODE_NIGHT_NO -> false
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> false
+            else -> false
+        }
 }
